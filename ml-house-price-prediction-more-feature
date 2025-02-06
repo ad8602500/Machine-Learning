@@ -1,0 +1,22 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Load dataset with multiple features
+df = pd.read_csv("/content/homeprices.csv")
+
+# Handling missing values (optional, but recommended)
+df.fillna(df.mean(), inplace=True)  # Replaces NaN values with column mean
+
+# Selecting input features (X) and target variable (y)
+X = df[['area', 'bedrooms', 'age']]
+y = df['price']
+
+# Creating and training the model
+reg = LinearRegression()
+reg.fit(X, y)
+
+# Predicting price for a house with area=3300, 3 bedrooms, and 15 years old
+predicted_price = reg.predict([[3300, 3, 15]])
+
+print("Predicted price for 3300 sq ft house with 3 bedrooms and 15 years old:", predicted_price[0])
